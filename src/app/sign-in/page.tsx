@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignIn = () => {
   interface FormElements extends HTMLFormControlsCollection {
@@ -18,6 +20,27 @@ const SignIn = () => {
       const data = new FormData(e.currentTarget);
       const email = data.get("email") as string;
       const password = data.get("password") as string;
+      if (!email) {
+        toast.error("Email is required", {
+          autoClose: 3000, // 3 seconds
+        });
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        toast.error("Invalid email format", {
+          autoClose: 3000, // 3 seconds
+        });
+        return;
+      }
+
+      if (!password) {
+        toast.error("Password is required", {
+          autoClose: 3000, // 3 seconds
+        });
+        return;
+      }
       const response = await axios.post(
         "http://localhost:3000/api/v1/auth/login",
         {
@@ -31,8 +54,12 @@ const SignIn = () => {
         if (typeof window !== "undefined") window.location.href = "/admin";
       }
     } catch (error) {
-      console.error("An unexpected error occurred:", error);
-      alert("Invalid email or password");
+      if (axios.isAxiosError(error)) {
+        console.log(error.message);
+      } else {
+        console.log("An unexpected error occurred");
+      }
+      toast.error("Invalid email or password");
     }
   };
 
@@ -67,6 +94,18 @@ const SignIn = () => {
           <button className="bg-purpleButton text-white p-2 rounded-md w-1/2 self-center font-bold">
             Sign In
           </button>
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </form>
 
         {/* BOTTOM */}
