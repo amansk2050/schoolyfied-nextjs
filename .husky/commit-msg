@@ -1,0 +1,15 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Regex pattern for Conventional Commits format
+commit_regex="^(feat|fix|docs|style|refactor|test|chore|build|ci|perf|revert)(\(.+\))?: .{1,72}"
+
+# Get the commit message
+commit_message=$(cat "$1")
+
+# Check if the commit message matches the pattern
+if ! echo "$commit_message" | grep -Eq "$commit_regex"; then
+  echo "⛔ Commit message does not follow the Conventional Commits format!"
+  echo "Example: feat: add new feature"
+  exit 1 # Exit with a non-zero status to block the commit
+fi
