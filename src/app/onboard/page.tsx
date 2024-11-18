@@ -369,6 +369,8 @@ const OnboardingPage = () => {
     try {
       // const response = await axios.post("/api/endpoint", formData);
       console.log("form datat", formData);
+
+      // here i will save token on local storage
       router.push("/admin");
     } catch (error) {
       console.error(error);
@@ -377,75 +379,77 @@ const OnboardingPage = () => {
   };
 
   return (
-    <div className="w-1/2 h-[80vh] flex justify-center items-center bg-white rounded-3xl shadow-xl overflow-hidden">
-      <div className="h-[80%] w-full flex flex-col justify-between items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="h-full w-full flex flex-col items-center justify-center"
-        >
-          {/* Card content */}
-          <div className="flex-1 flex items-center justify-center p-6">
-            <motion.div
-              key={currentStep}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              className="w-full"
-            >
-              {steps[currentStep].content}
-            </motion.div>
-          </div>
-
-          {/* Navigation buttons and Progress bar in a row */}
-          <div className="w-full flex items-center justify-center px-8 py-4 gap-4">
-            {/* Previous Button */}
-            <button
-              onClick={handlePrevious}
-              disabled={currentStep === 0}
-              className="disabled:opacity-50"
-            >
-              <Image
-                src="/assets/icons/nextArrow.svg"
-                width={30}
-                height={30}
-                alt="previous"
-                className="transform rotate-180"
-              />
-            </button>
-
-            {/* Progress bar */}
-            <div className="flex-1 mx-4">
-              <div className="h-2 bg-gray-200 rounded">
-                <div
-                  className="h-full bg-purple-500 rounded transition-all duration-500"
-                  style={{
-                    width: `${(currentStep / (steps.length - 1)) * 100}%`,
-                  }}
-                />
-              </div>
+    <div className="h-screen flex justify-center items-center bg-gradient-to-r from-lamaPurple to-lamaSky">
+      <div className="w-1/2 h-[80vh] flex justify-center items-center bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div className="h-[80%] w-full flex flex-col justify-between items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="h-full w-full flex flex-col items-center justify-center"
+          >
+            {/* Card content */}
+            <div className="flex-1 flex items-center justify-center p-6">
+              <motion.div
+                key={currentStep}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                className="w-full"
+              >
+                {steps[currentStep].content}
+              </motion.div>
             </div>
 
-            {/* Next/Submit Button */}
-            {currentStep === steps.length - 1 ? (
+            {/* Navigation buttons and Progress bar in a row */}
+            <div className="w-full flex items-center justify-center px-8 py-4 gap-4">
+              {/* Previous Button */}
               <button
-                onClick={handleSubmit}
-                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded"
+                onClick={handlePrevious}
+                disabled={currentStep === 0}
+                className="disabled:opacity-50"
               >
-                Submit
-              </button>
-            ) : (
-              <button onClick={handleNext}>
                 <Image
                   src="/assets/icons/nextArrow.svg"
                   width={30}
                   height={30}
-                  alt="next"
+                  alt="previous"
+                  className="transform rotate-180"
                 />
               </button>
-            )}
-          </div>
-        </motion.div>
+
+              {/* Progress bar */}
+              <div className="flex-1 mx-4">
+                <div className="h-2 bg-gray-200 rounded">
+                  <div
+                    className="h-full bg-purple-500 rounded transition-all duration-500"
+                    style={{
+                      width: `${(currentStep / (steps.length - 1)) * 100}%`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Next/Submit Button */}
+              {currentStep === steps.length - 1 ? (
+                <button
+                  onClick={handleSubmit}
+                  className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded"
+                >
+                  Submit
+                </button>
+              ) : (
+                <button onClick={handleNext}>
+                  <Image
+                    src="/assets/icons/nextArrow.svg"
+                    width={30}
+                    height={30}
+                    alt="next"
+                  />
+                </button>
+              )}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

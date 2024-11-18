@@ -17,9 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <div className="h-screen flex justify-center items-center bg-gradient-to-r from-lamaPurple to-lamaSky">
+        {/* <div className="h-screen flex justify-center items-center bg-gradient-to-r from-lamaPurple to-lamaSky">
           {children}
-        </div>
+        </div> */}
+        {children}
       </body>
     </html>
   );
