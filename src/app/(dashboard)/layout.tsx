@@ -1,3 +1,5 @@
+import { Nunito } from "next/font/google";
+const nunito = Nunito({ subsets: ["latin"] });
 export default function DashboardLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={nunito.className}>{children}</body>
     </html>
   );
 }
