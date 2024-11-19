@@ -73,11 +73,12 @@ function AttendancePichart() {
               content={<ChartTooltipContent hideLabel />}
             />
             <Pie
-              data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
-              innerRadius={60}
-              strokeWidth={5}
+               data={chartData}
+               dataKey="visitors"
+               nameKey="browser"
+               innerRadius={70} // Adjusted for a wider slice
+               outerRadius={80} // Increased radius for better proportions
+               strokeWidth={8} 
             >
               <Label
                 content={({ viewBox }) => {
@@ -125,3 +126,4 @@ function AttendancePichart() {
 }
 
 export default AttendancePichart;
+

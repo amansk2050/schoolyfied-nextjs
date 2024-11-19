@@ -197,9 +197,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar
       className=""
       variant="floating"
+      collapsible="icon"
       {...props}
     >
-      <SidebarHeader>
+      <SidebarHeader >
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>

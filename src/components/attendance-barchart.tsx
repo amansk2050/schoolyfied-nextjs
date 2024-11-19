@@ -29,13 +29,14 @@ const chartData = [
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "hsl(var(--chart-1))",
+    color: "hsl(50, 100%, 50%)", // Yellow
   },
   mobile: {
     label: "Mobile",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(200, 100%, 75%)", // Light blue
   },
 } satisfies ChartConfig;
+
 
 function AttendanceBarChart() {
   return (

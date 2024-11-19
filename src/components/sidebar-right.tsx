@@ -47,8 +47,8 @@ function SidebarRight({
       className="sticky hidden lg:flex top-0 h-svh border-l"
       {...props}
     >
-      <SidebarHeader className="h-16 border-b border-sidebar-border">
-        <NavUser user={data.user} />
+      <SidebarHeader className="h-16 border-b border-sidebar-border bg-white">
+        {/* <NavUser user={data.user} /> */}
       </SidebarHeader>
       <SidebarContent>
         <DatePicker />
