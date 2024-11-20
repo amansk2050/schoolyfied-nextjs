@@ -41,7 +41,7 @@ function AttendanceBarChart() {
   return (
     <Card className="flex flex-col w-[65%]">
       <CardHeader>
-        <CardTitle className="font-semibold text-[20px]">
+        <CardTitle className="font-semibold text-xl">
           Weekly Attendance Report
         </CardTitle>
       </CardHeader>

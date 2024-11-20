@@ -45,7 +45,7 @@ function AttendancePichart() {
   return (
     <Card className="flex flex-col w-1/3">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="font-semibold text-[20px]">Students</CardTitle>
+        <CardTitle className="font-semibold text-xl">Students</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer

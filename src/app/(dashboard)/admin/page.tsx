@@ -83,7 +83,7 @@ const AdminPage = () => {
         {/* MIDDLE */}
         <div className="flex flex-row h-screen w-full">
           {/* MIDDLE-LEFT */}
-          <div className="flex flex-1 flex-col gap-4 p-4 pt-0  ">
+          <div className="flex flex-1 items-center flex-col gap-4 p-4 pt-0  ">
             {/* TOP CARDS */}
             <div className="grid auto-rows-min w-full gap-4 md:grid-cols-3  p-2 ">
               <div className="rounded-xl w-full ">
@@ -111,6 +111,9 @@ const AdminPage = () => {
                 <AttendanceBarChart />
               </div>
             </div>
+            <span className="pt-5 font-semibold text-xl">
+              Leave Requests
+            </span>
             {/* LEAVE REQUESTS  use data-table component for schad cn ui*/}
             <LeaveRequestTable />
           </div>
