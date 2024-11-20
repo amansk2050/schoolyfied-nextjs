@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import axios from "axios";
-import { UserRoles } from "@/helper/roleEnumHelper";
+import { UserRoles } from "@/enums/roleEnumHelper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";

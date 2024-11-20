@@ -18,25 +18,24 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
+  { day: "Monday", absent: 105, present: 200 },
+  { day: "Tuesday", absent: 110, present: 120 },
+  { day: "Wednesday", absent: 115, present: 190 },
+  { day: "Thrusday", absent: 120, present: 130 },
+  { day: "Friday", absent: 125, present: 140 },
+  { day: "Saturday", absent: 130, present: 80 },
 ];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(50, 100%, 50%)", // Yellow
+  present: {
+    label: "present",
+    color: "hsl(var(--primary))", // green
   },
-  mobile: {
-    label: "Mobile",
-    color: "hsl(200, 100%, 75%)", // Light blue
+  absent: {
+    label: "absent",
+    color: "hsl(var(--chart-4))", // yellow
   },
 } satisfies ChartConfig;
-
 
 function AttendanceBarChart() {
   return (
@@ -51,7 +50,7 @@ function AttendanceBarChart() {
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="day"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -61,17 +60,17 @@ function AttendanceBarChart() {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <Bar dataKey="present" fill="var(--color-present)" radius={4} />
+            <Bar dataKey="absent" fill="var(--color-absent)" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>
       {/* <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          Trending up by 5.2% this day <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Showing total visitors for the last 6 days
         </div>
       </CardFooter> */}
     </Card>
