@@ -92,7 +92,7 @@ const data = {
       items: [
         {
           title: "Classrooms",
-          url: "#",
+          url: "/menu/class-room",
         },
         {
           title: "Timetable",
