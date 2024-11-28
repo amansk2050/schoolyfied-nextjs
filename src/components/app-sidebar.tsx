@@ -30,7 +30,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-
 const data = {
   user: {
     name: "aman",
@@ -44,6 +43,10 @@ const data = {
       icon: User,
       isActive: true,
       items: [
+        {
+          title: "student Details",
+          url: "/menu/students",
+        },
         {
           title: "Academic Performance",
           url: "#",
@@ -195,16 +198,11 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar
-      className=""
-      variant="floating"
-      collapsible="icon"
-      {...props}
-    >
-      <SidebarHeader >
+    <Sidebar className="" variant="floating" collapsible="icon" {...props}>
+      <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild className="" >
+            <SidebarMenuButton size="lg" asChild className="">
               <a href="#">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <School2Icon className="size-4" />
@@ -221,7 +219,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain}/>
+        <NavMain items={data.navMain} />
         {/* for now not though about this feature but good idea
         <NavProjects projects={data.projects} /> */}
         <NavSecondary items={data.navSecondary} className="mt-auto" />
