@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/card";
 
 import { Label } from "@/components/ui/label";
-import { AddClassSectionCard } from "@/components/add-class-section-card";
+import { AddClassSectionSheet } from "@/components/add-class-section-sheet";
 
 const data = {
   sectionCategory: [
@@ -306,8 +306,14 @@ const data = {
 
 const ClassRoomMenu = () => {
   return (
-    <div className="p-2">
-      <AddClassSectionCard />
+    <div className="flex flex-col p-2">
+       <Label className="font-bold text-2xl">Classroom Details</Label>
+      <Label className="pt-4 font-normal text-sm">
+        Get you classroom details here.
+      </Label>
+      <div className="p-3 flex justify-end ">
+      <AddClassSectionSheet />
+      </div>
 
       <Tabs
         defaultValue={toCamelCase(data.sectionCategory[0].title)}
@@ -385,7 +391,7 @@ const ClassRoomMenu = () => {
                               </CardContent>
                               <CardFooter className="p-2  items-end ml-auto">
                                 <Link
-                                  href={`/class-room/${sectionData.sectionId}`}
+                                  href={`/menu/class-room/${sectionData.sectionId}`}
                                   className="bg-secondary text-white p-2 rounded-md "
                                 >
                                   <EyeIcon

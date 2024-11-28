@@ -194,9 +194,19 @@ const StudentDetails = () => {
       columnVisibility,
       rowSelection,
     },
+    filterFns: {
+      globalFilter: (row, columnId, filterValue) => {
+        const email = (row.getValue("email") as string).toLowerCase();
+        const status = (row.getValue("status") as string).toLowerCase();
+        const searchValue = filterValue.toLowerCase();
+        return email.includes(searchValue) || status.includes(searchValue);
+      },
+    },
   });
   const handleDeleteSelected = () => {
-    const selectedRowIds = table.getSelectedRowModel().rows.map(row => row.original.id);
+    const selectedRowIds = table
+      .getSelectedRowModel()
+      .rows.map((row) => row.original.id);
     // Implement your delete logic here, e.g., make an API call to delete the selected rows
     console.log("Deleting rows with IDs:", selectedRowIds);
   };
@@ -213,11 +223,9 @@ const StudentDetails = () => {
       <div className="w-full ">
         <div className="flex items-center py-4">
           <Input
-            placeholder="Filter emails..."
-            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
-            }
+            placeholder="Search email or status..."
+            value={(table.getState().globalFilter as string) ?? ""}
+            onChange={(event) => table.setGlobalFilter(event.target.value)}
             className="max-w-sm"
           />
           <DropdownMenu>
@@ -246,10 +254,11 @@ const StudentDetails = () => {
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant="outline" className="ml-2" onClick={() => {/* Add filter logic here */}}>
-            Filter
-          </Button>
-          <Button variant="destructive" className="ml-2" onClick={handleDeleteSelected}>
+          <Button
+            variant="destructive"
+            className="ml-2"
+            onClick={handleDeleteSelected}
+          >
             Delete Selected
           </Button>
         </div>

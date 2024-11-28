@@ -16,11 +16,57 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useState } from "react"; // Import useState and useEffect
+
 export default function MenuLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [pathSegments, setPathSegments] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Extract path segments from the current URL
+    const segments = window.location.pathname
+      .split("/")
+      .filter((segment) => segment !== "");
+    setPathSegments(segments);
+  }, []); // Empty dependency array to run only once after mount
+
+  // Function to create breadcrumb links dynamically based on path segments
+  const generateBreadcrumbs = () => {
+    return pathSegments.map((segment, index) => {
+      const href = "/" + pathSegments.slice(0, index + 1).join("/"); // Create href for each breadcrumb
+      const isLast = index === pathSegments.length - 1; // Check if it's the last breadcrumb (current page)
+
+      // Skip rendering the first breadcrumb if it's "menu"
+      if (index === 0 && segment === "menu") {
+        return null;
+      }
+
+      return (
+        <>
+         <Breadcrumb key={segment + index}>
+          <BreadcrumbList >
+            {/* Use the segment value + index for uniqueness */}
+            <BreadcrumbItem>
+              {isLast ? (
+                <BreadcrumbPage>{segment.replace("-", " ")}</BreadcrumbPage> // Display page name for the last breadcrumb
+              ) : (
+                <BreadcrumbLink href={href}>
+                  {segment.replace("-", " ")}
+                </BreadcrumbLink> // Link for other breadcrumbs
+              )}
+            </BreadcrumbItem>
+          </BreadcrumbList>
+          </Breadcrumb>
+          {/* Add a separator after each breadcrumb except the last one */}
+          {index < pathSegments.length - 1 && <BreadcrumbSeparator />}
+        </>
+      );
+    });
+  };
+
   return (
     <html lang="en">
       <body className={nunito.className}>
@@ -32,21 +78,10 @@ export default function MenuLayout({
               <div className="flex items-center gap-2 px-4 ">
                 <SidebarTrigger className="-ml-1" />
                 <Separator orientation="vertical" className="mr-2 h-4" />
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem className="hidden md:block">
-                      <BreadcrumbLink href="#">Class</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="hidden md:block" />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Section</BreadcrumbPage>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator className="hidden md:block" />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Class 12 - A</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
+               
+                  {/* Dynamic Breadcrumb Items */}
+                  {generateBreadcrumbs()}
+               
               </div>
             </header>
             {children}
