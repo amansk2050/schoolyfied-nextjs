@@ -1,20 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
-
-type BordResponseData = {
-  id: string;
-  name: string;
-  abbr: string;
-  active: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
+import { useCreateSchool, useGetAllSchoolSections } from "@/api/school";
+import { useGetUserFromToken } from "@/api/users";
+import { useGetAllBoards } from "@/api/boards";
+import { useRouter } from "next/navigation";
 type Class = {
   id: string;
   name: string;
@@ -40,8 +34,28 @@ type SelectedSection = {
 };
 const OnboardingPage = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const fullName = searchParams.get("fullName");
+  // mutations
+  const createSchoolMutation = useCreateSchool();
+
+  // custom hook to get all boards
+  const getAllBoards = useGetAllBoards();
+
+  // get all school sections
+  const getAllSchoolSections = useGetAllSchoolSections();
+
+  // // get user information from token if no user found then it will send back to register page
+  const getUserFromToken = useGetUserFromToken();
+  // get token from local storage, call get-me api and set full name as lastName form response
+  const [fullName, setFullName] = useState("");
+  useEffect(() => {
+    if (getUserFromToken.error) {
+      router.push("/sign-up");
+    }
+    if (getUserFromToken.data) {
+      setFullName(getUserFromToken.data.lastName);
+    }
+  }, [getUserFromToken.error, getUserFromToken.data, router]);
+
   const [currentStep, setCurrentStep] = useState(0);
   const [boardIds, setBoardIds] = useState([
     {
@@ -57,7 +71,7 @@ const OnboardingPage = () => {
     },
   ]);
 
-  const handleBoardChange = (selectedOption: { value: string }) => {
+  const handleBoardChange = (selectedOption: { value: string } | null) => {
     console.log("selectedOption :: ", selectedOption);
     const selectedBoard = boardIds.find(
       (board) => board.name === selectedOption.value
@@ -106,66 +120,52 @@ const OnboardingPage = () => {
     category_id: false,
   });
 
-  // call api to get all board id
+  // handles get all boards
   useEffect(() => {
-    const fetchBoards = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/boards/all"
-        );
-        // push all board id and name as object in array
-        const boardIds = response.data.data.map((board: BordResponseData) => ({
-          id: board.id,
-          name: board.name,
-        }));
-        setBoardIds(boardIds);
-      } catch (error) {
-        console.error(error);
-        toast.error("An error occurred. Please try again later.");
-      }
-    };
-    fetchBoards();
-  }, []);
+    if (getAllBoards.error) {
+      toast.error("An error occurred, Getting Boards");
+    }
+    if (getAllBoards.data) {
+      setBoardIds(getAllBoards.data.data);
+    }
+  }, [getAllBoards.error, getAllBoards.data]);
 
-  // call api to get all sections
+  // handles to get all sections
   useEffect(() => {
-    const fetchSections = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/class-category/all"
-        );
-        // push all board id and name as object in array
-        const sectionsList = response.data.data.map((section: Section) => ({
-          id: section.id,
-          value: section.name,
-          label: section.name,
-        }));
-        setSectionsList(sectionsList);
-      } catch (error) {
-        console.error(error);
-        toast.error("An error occurred. Please try again later.");
-      }
-    };
-    fetchSections();
-  }, []);
+    if (getAllSchoolSections.error) {
+      console.log("error sections");
+      toast.error("An error occurred, Getting school sections");
+    }
+    if (getAllSchoolSections.data) {
+      const sections = getAllSchoolSections.data.data;
+      const sectionsList = sections.map((section: Section) => ({
+        id: section.id,
+        value: section.name,
+        label: section.name,
+      }));
+      setSectionsList(sectionsList);
+    }
+  }, [getAllSchoolSections.error, getAllSchoolSections.data]);
 
   const steps = [
     {
       label: "Email",
       content: (
-        <div className="">
-          <h2 className="text-2xl font-bold">Hi, {fullName}</h2>
-          <span>Welcome to SchoolyFied</span>
-          <p className="">Let start with onboarding</p>
+        <div className="flex flex-col gap-1">
+          <h2 className="font-semibold text-xl text-primary">Hi, {fullName}</h2>
+          {/* <span>Welcome to SchoolyFied</span> */}
+          <p className="font-semibold text-sm">
+            Let start with school&apos;s official email 👋
+          </p>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Type email here"
             value={formData.email}
             onChange={(e) => {
               setFormData({ ...formData, email: e.target.value });
               setErrors({ ...errors, email: e.target.value === "" });
             }}
-            className="p-2 border border-gray-300 rounded-md"
+            className="p-2 text-3xl font-light"
           />
           {errors.email && (
             <p className="text-red-500 text-sm">This field is required</p>
@@ -176,9 +176,11 @@ const OnboardingPage = () => {
     {
       label: "Name",
       content: (
-        <div className="">
+        <div className="flex flex-col gap-1">
           <h1 className="text-2xl font-bold"></h1>
-          <p className="">We’d love to know a bit more about your school...</p>
+          <p className="font-semibold text-sm">
+            We’d love to know a bit more about your school...
+          </p>
           <input
             type="text"
             placeholder="School Name"
@@ -187,7 +189,7 @@ const OnboardingPage = () => {
               setFormData({ ...formData, name: e.target.value });
               setErrors({ ...errors, name: e.target.value === "" });
             }}
-            className="p-2 border border-gray-300 rounded-md"
+            className="p-2 text-3xl font-light"
           />
           {errors.name && (
             <p className="text-red-500 text-sm">This field is required</p>
@@ -198,10 +200,12 @@ const OnboardingPage = () => {
     {
       label: "Select board",
       content: (
-        <div className=" p-6 rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Select Your Board</h2>
-          <p className="mb-4">Please select the board for your school</p>
+        <div className="flex flex-col gap-2">
+          <p className="font-semibold text-sm">
+            Please select the board for school
+          </p>
           <Select
+            className="p-2 text-xl font-light"
             options={boardIds.map((board) => ({
               value: board.name,
               label: board.name,
@@ -225,12 +229,12 @@ const OnboardingPage = () => {
     {
       label: "Select sections",
       content: (
-        <div className="p-6 rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Select Sections</h2>
-          <p className="mb-4">
+        <div className="flex flex-col gap-2">
+          <p className="font-semibold text-sm">
             Please select one or more sections for your school
           </p>
           <Select
+            className="p-2 text-xl font-light"
             isMulti={true}
             options={sectionsList.map((section) => ({
               id: section.id,
@@ -254,18 +258,20 @@ const OnboardingPage = () => {
     {
       label: "Phone",
       content: (
-        <div className="">
-          <h1 className="text-2xl font-bold">welcome to SchoolyFied</h1>
-          <p className="">We’d love to know a bit more about your school...</p>
+        <div className="flex flex-col gap-2">
+          <p className="font-semibold text-sm">
+            {" "}
+            School primary contact number
+          </p>
           <input
+            className="p-2 text-3xl font-light"
             type="text"
-            placeholder="8250515182"
+            placeholder="Type here .. "
             value={formData.contact_number}
             onChange={(e) => {
               setFormData({ ...formData, contact_number: [e.target.value] });
               setErrors({ ...errors, contact_number: e.target.value === "" });
             }}
-            className="p-2 border border-gray-300 rounded-md"
           />
           {errors.name && (
             <p className="text-red-500 text-sm">This field is required</p>
@@ -276,7 +282,8 @@ const OnboardingPage = () => {
     {
       label: "Address",
       content: (
-        <div className="">
+        <div className="flex flex-col gap-2">
+          <p className="font-semibold text-sm">School Address .. 🏫</p>
           <input
             type="text"
             placeholder="Country"
@@ -366,21 +373,17 @@ const OnboardingPage = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      // const response = await axios.post("/api/endpoint", formData);
-      console.log("form datat", formData);
-
-      // here i will save token on local storage
-      router.push("/admin");
-    } catch (error) {
-      console.error(error);
-      toast.error("An error occurred. Please try again later.");
-    }
+    console.log("form datat", formData);
+    formData.address = JSON.stringify(formData.address);
+    createSchoolMutation.mutate(formData);
+    router.push("/admin");
   };
 
   return (
     <div className="h-screen flex justify-center items-center bg-gradient-to-r from-lamaPurple to-lamaSky">
-      <div className="w-1/2 h-[80vh] flex justify-center items-center bg-white rounded-3xl shadow-xl overflow-hidden">
+      {/* <Button className="bg-white text-black">Help</Button> */}
+      <div className="w-1/2 h-[80vh] flex flex-col justify-center items-center bg-white rounded-3xl shadow-xl overflow-hidden">
+        <p className="font-bold text-xl text-purpleButton ">SchoolyFied.in</p>
         <div className="h-[80%] w-full flex flex-col justify-between items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -421,7 +424,7 @@ const OnboardingPage = () => {
               <div className="flex-1 mx-4">
                 <div className="h-2 bg-gray-200 rounded">
                   <div
-                    className="h-full bg-purple-500 rounded transition-all duration-500"
+                    className="h-full bg-purpleButton rounded transition-all duration-500"
                     style={{
                       width: `${(currentStep / (steps.length - 1)) * 100}%`,
                     }}
@@ -431,12 +434,14 @@ const OnboardingPage = () => {
 
               {/* Next/Submit Button */}
               {currentStep === steps.length - 1 ? (
-                <button
-                  onClick={handleSubmit}
-                  className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded"
-                >
-                  Submit
-                </button>
+                <>
+                  <button
+                    onClick={handleSubmit}
+                    className="px-4 py-2 bg-primary hover:bg-black text-white rounded"
+                  >
+                    Submit
+                  </button>
+                </>
               ) : (
                 <button onClick={handleNext}>
                   <Image
@@ -447,6 +452,18 @@ const OnboardingPage = () => {
                   />
                 </button>
               )}
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
             </div>
           </motion.div>
         </div>

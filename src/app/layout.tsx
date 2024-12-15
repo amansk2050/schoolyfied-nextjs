@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
+import ReactQueryProvider from "@/provider/queryClientProvider";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
         {/* <div className="h-screen flex justify-center items-center bg-gradient-to-r from-lamaPurple to-lamaSky">
           {children}
         </div> */}
-        {children}
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );

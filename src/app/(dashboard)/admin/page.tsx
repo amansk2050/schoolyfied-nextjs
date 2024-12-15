@@ -6,8 +6,8 @@ import TotalCountCard from "@/components/total-countcard";
 import AttendancePichart from "@/components/attendance-pichart";
 import AttendanceBarChart from "@/components/attendance-barchart";
 import AnnouncementsAlert from "@/components/anouncement-alert";
+
 import LeaveRequestTable from "@/components/leave-request-table";
-import { AlertType } from "@/enums/alertEnums";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -24,6 +24,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { AlertType } from "@/enums/alertEnums";
 
 const announcements = [
   {
@@ -123,7 +124,7 @@ const AdminPage = () => {
               mode="single"
               selected={date}
               onSelect={setDate}
-              className="h-[600px] pt-2 border rounded-xl bg-card text-card-foreground shadow"
+              className=" h-[600px] pt-2 border rounded-xl bg-card text-card-foreground shadow"
             />
             <div className="flex flex-col justify-center items-center h-full w-full gap-4">
               <span className="pt-5 font-semibold text-xl">

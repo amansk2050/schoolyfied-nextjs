@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BookOpen,
   Frame,
@@ -29,13 +29,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
+import { useGetUserFromToken } from "@/api/users";
+import { useGetRegisterdSchoolByUserId } from "@/api/school";
 const data = {
-  user: {
-    name: "aman",
-    email: "skaman.2050@gmail.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Student",
@@ -197,6 +193,45 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    avatar: "",
+  });
+  const [userId, setUserId] = useState("");
+
+  // get user from token
+  const getUserFromToken = useGetUserFromToken();
+  // get school by user id
+
+  //@TODO: get user id from token is not completed because there is no api to school created by user
+  const getSchoolByUser = useGetRegisterdSchoolByUserId(userId);
+
+  // set school name
+  const [schoolName, setSchoolName] = useState("");
+
+  // handle get user from token
+  useEffect(() => {
+    if (getUserFromToken.data) {
+      setUser({
+        name: getUserFromToken.data.lastName,
+        email: getUserFromToken.data.email,
+        avatar: "/avatars/shadcn.jpg",
+      });
+      // setUserId(getUserFromToken.data.id);
+      setUserId("fbc9833f-c03d-4631-8319-c1191aa9f8aa");
+    }
+  }, [getUserFromToken.error, getUserFromToken.data]);
+
+  // handle get school by user id
+  useEffect(() => {
+    if (getSchoolByUser.error) {
+      console.log(getSchoolByUser.error);
+    }
+    if (getSchoolByUser.data) {
+      setSchoolName(getSchoolByUser.data.name);
+    }
+  }, [getSchoolByUser.error, getSchoolByUser.data]);
   return (
     <Sidebar className="" variant="floating" collapsible="icon" {...props}>
       <SidebarHeader>
@@ -208,9 +243,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <School2Icon className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">
-                    ABC Public School
-                  </span>
+                  <span className="truncate font-semibold">{schoolName}</span>
                   <span className="truncate text-xs">Co-ed School</span>
                 </div>
               </a>
@@ -225,7 +258,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );

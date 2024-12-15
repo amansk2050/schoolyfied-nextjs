@@ -1,12 +1,15 @@
 "use client";
-import React from "react";
+import React, { use, useEffect } from "react";
 import axios from "axios";
 import { UserRoles } from "@/enums/roleEnumHelper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useCreateAdmin } from "@/api/users";
 const SignUp = () => {
+  // mutations
+  const createAdminMutation = useCreateAdmin();
   const router = useRouter();
   // onSubmit function
   interface FormElements extends HTMLFormControlsCollection {
@@ -19,6 +22,15 @@ const SignUp = () => {
   interface SignUpFormElement extends HTMLFormElement {
     readonly elements: FormElements;
   }
+  useEffect(() => {
+    if (createAdminMutation.isSuccess) {
+      toast.success("Admin created successfully", {
+        autoClose: 3000,
+      });
+      localStorage.setItem("token", createAdminMutation.data.token);
+      router.push("/onboard");
+    }
+  }, [createAdminMutation.isSuccess, createAdminMutation.data.token, router]);
   const handleSubmit = async (e: React.FormEvent<SignUpFormElement>) => {
     try {
       e.preventDefault();
@@ -68,23 +80,21 @@ const SignUp = () => {
         return;
       }
       console.log("info", email, password, fullName, confirmPassword, role);
-      // API call
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/auth/signup",
-        {
-          fullName,
-          email,
-          password,
-          roles: [role as UserRoles],
-        }
-      );
-      if (response.status === 201) {
-        toast.success("User created successfully", {
+
+      await createAdminMutation.mutate({
+        fullName,
+        email,
+        password,
+        roles: [role],
+      });
+    } catch (error) {
+      if (createAdminMutation.isError) {
+        console.log(createAdminMutation.error);
+        toast.error(createAdminMutation.error.message, {
           autoClose: 3000,
         });
-        router.push(`/onboard?fullName=${encodeURIComponent(fullName)}`);
+        return;
       }
-    } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.message);
       }
@@ -151,7 +161,7 @@ const SignUp = () => {
               }}
               defaultValue=""
             >
-              <option value="" disabled selected style={{ color: "#6B7280" }}>
+              <option value="" disabled style={{ color: "#6B7280" }}>
                 Select Role
               </option>
               {Object.values(UserRoles).map((role) => (
@@ -161,7 +171,9 @@ const SignUp = () => {
               ))}
             </select>
             <button className="bg-purpleButton text-white p-2 rounded-md w-1/2 self-center font-bold">
-              Start Onboarding
+              {createAdminMutation.isPending
+                ? "Registering.."
+                : "Start Onboarding"}
             </button>
             <ToastContainer
               position="top-right"
