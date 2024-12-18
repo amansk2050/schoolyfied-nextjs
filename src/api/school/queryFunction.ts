@@ -74,21 +74,26 @@ export const getAllSchoolSections = async () => {
  */
 
 export const getRegisterdSchoolByUserId = async (id: string) => {
-  console.log("id", id);
-  const token = localStorage.getItem("token");
-  const params = {
-    id,
-  };
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-  if (!token) {
-    throw new Error("Token not found");
-  }
-  const response = await axios.get(`${API_BASE_URL}/school/id`, {
-    params: params,
-    headers: headers,
-  });
+  try {
+    console.log("id",id);
+    const token = localStorage.getItem("token");
+    const params = {
+      id,
+    };
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    if (!token) {
+      throw new Error("Token not found");
+    }
+    const response = await axios.get(`${API_BASE_URL}/school/id`, {
+      params: params,
+      headers: headers,
+    });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.log("error",error);
+    return null;
+  }
 };

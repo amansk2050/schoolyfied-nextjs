@@ -40,10 +40,11 @@ export const useGetAllSchoolSections = () => {
  * @throws error if no school is there
  * @param id
  */
-export const useGetRegisterdSchoolByUserId = (id: string) => {
+export const useGetRegisterdSchoolByUserId = (id: string|null) => {
   const { data, error } = useQuery({
-    queryKey: ["getRegisterdSchoolByUserId"],
-    queryFn: () => getRegisterdSchoolByUserId(id),
+    queryKey: ["getRegisterdSchoolByUserId", id],
+    queryFn: () => getRegisterdSchoolByUserId(id as string),
+    enabled: !!id,
     staleTime: 1000 * 60 * 10, // 10 minutes
     retry: false,
   });

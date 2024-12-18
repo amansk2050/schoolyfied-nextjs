@@ -198,14 +198,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     email: "",
     avatar: "",
   });
-  const [userId, setUserId] = useState("");
-
-  // get user from token
   const getUserFromToken = useGetUserFromToken();
-  // get school by user id
+  const userId = "fbc9833f-c03d-4631-8319-c1191aa9f8aa";
 
   //@TODO: get user id from token is not completed because there is no api to school created by user
-  const getSchoolByUser = useGetRegisterdSchoolByUserId(userId);
+  
 
   // set school name
   const [schoolName, setSchoolName] = useState("");
@@ -219,22 +216,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         avatar: "/avatars/shadcn.jpg",
       });
       // setUserId(getUserFromToken.data.id);
-      setUserId("fbc9833f-c03d-4631-8319-c1191aa9f8aa");
     }
   }, [getUserFromToken.error, getUserFromToken.data]);
-
+  const getSchoolByUser = useGetRegisterdSchoolByUserId(userId);
   // handle get school by user id
   useEffect(() => {
     if (getSchoolByUser.error) {
       console.log(getSchoolByUser.error);
     }
     if (getSchoolByUser.data) {
-      setSchoolName(getSchoolByUser.data.name);
+      console.log("school data ",getSchoolByUser.data.data.name);
+      setSchoolName(getSchoolByUser.data.data.name);
     }
-  }, [getSchoolByUser.error, getSchoolByUser.data]);
+  }, [getSchoolByUser.error, getSchoolByUser.data,]);
   return (
     <Sidebar className="" variant="floating" collapsible="icon" {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild className="">

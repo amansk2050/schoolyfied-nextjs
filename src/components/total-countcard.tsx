@@ -40,7 +40,7 @@ const TotalCountCard: React.FC<TotalCountCardProps> = ({
   }
 
   return (
-    <Card className="flex flex-row items-center h-full p-2">
+    <Card className="flex flex-row items-center h-full p-2 ">
       {/* <div className="flex items-center w-full bg-lamaPurple "> */}
         {/* Icon with border on the left */}
         <div className="bg-secondary  rounded-full p-2 mr-2">

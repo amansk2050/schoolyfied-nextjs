@@ -82,7 +82,7 @@ const AdminPage = () => {
           </div>
         </header>
         {/* MIDDLE */}
-        <div className="flex flex-row h-screen w-full">
+        <div className="flex flex-row h-screen w-full ">
           {/* MIDDLE-LEFT */}
           <div className="flex flex-1 items-center flex-col gap-4 p-4 pt-0  ">
             {/* TOP CARDS */}

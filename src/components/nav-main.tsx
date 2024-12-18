@@ -45,9 +45,7 @@ export function NavMain({
   );
 
   // State to track the selected menu
-  const [selectedMenu, setSelectedMenu] = useState<string | null>(
-    items.find((item) => item.isActive)?.title || null
-  );
+  const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
 
   const toggleItem = (title: string) => {
     setOpenStates((prevState) => ({

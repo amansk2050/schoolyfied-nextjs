@@ -21,9 +21,9 @@ export function AddClassSectionSheet() {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Add class section</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you are done.
+            Add new section for this class
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
