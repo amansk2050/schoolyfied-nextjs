@@ -1,5 +1,4 @@
-import { API_BASE_URL } from "@/constants/baseUrl";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 type CreateSchoolType = {
   /**
@@ -49,10 +48,7 @@ type CreateSchoolType = {
  * @returns created school information
  */
 export const createSchool = async (createSchoolDto: CreateSchoolType) => {
-  const response = await axios.post(
-    `${API_BASE_URL}/school/create`,
-    createSchoolDto
-  );
+  const response = await axiosInstance.post(`/school/create`, createSchoolDto);
   return response.data;
 };
 
@@ -63,7 +59,7 @@ export const createSchool = async (createSchoolDto: CreateSchoolType) => {
  */
 
 export const getAllSchoolSections = async () => {
-  const response = await axios.get(`${API_BASE_URL}/class-category/all`);
+  const response = await axiosInstance.get(`/class-category/all`);
   return response.data;
 };
 
@@ -74,26 +70,6 @@ export const getAllSchoolSections = async () => {
  */
 
 export const getRegisterdSchoolByUserId = async (id: string) => {
-  try {
-    console.log("id",id);
-    const token = localStorage.getItem("token");
-    const params = {
-      id,
-    };
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    if (!token) {
-      throw new Error("Token not found");
-    }
-    const response = await axios.get(`${API_BASE_URL}/school/id`, {
-      params: params,
-      headers: headers,
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log("error",error);
-    return null;
-  }
+  const response = await axiosInstance.get(`/school/id?id=${id}`);
+  return response.data;
 };

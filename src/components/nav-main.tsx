@@ -74,7 +74,7 @@ export function NavMain({
                 tooltip={item.title}
                 className={`${
                   selectedMenu === item.title
-                    ? "bg-green-600 text-white"
+                    ? "bg-primary text-white"
                     : "bg-white"
                 }`}
                 onClick={() => selectMenu(item.title)}

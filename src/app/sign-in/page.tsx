@@ -54,7 +54,8 @@ const SignIn = () => {
       );
 
       if (response.status === 201) {
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.token.accessToken);
+        localStorage.setItem("refreshToken", response.data.token.refreshToken);
         router.push("/admin");
       }
     } catch (error) {

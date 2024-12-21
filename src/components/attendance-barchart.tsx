@@ -29,11 +29,11 @@ const chartData = [
 const chartConfig = {
   present: {
     label: "present",
-    color: "hsl(var(--primary))", // green
+    color: "hsl(var(--primary))", 
   },
   absent: {
     label: "absent",
-    color: "hsl(var(--chart-4))", // yellow
+    color: "hsl(var(--chart-4))", 
   },
 } satisfies ChartConfig;
 

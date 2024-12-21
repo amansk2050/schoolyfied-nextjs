@@ -1,5 +1,4 @@
-import { API_BASE_URL } from "@/constants/baseUrl";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 type createAdminDto = {
   fullName: string;
@@ -20,11 +19,7 @@ export const getUserFromToken = async () => {
   if (!token) {
     throw new Error("Token not found");
   }
-  const response = await axios.get(`${API_BASE_URL}/users/me`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await axiosInstance.get("/users/me");
   return response.data;
 };
 
@@ -35,9 +30,6 @@ export const getUserFromToken = async () => {
  */
 export const createAdmin = async (createAdminDto: createAdminDto) => {
   console.log(createAdminDto)
-  const response = await axios.post(
-    `${API_BASE_URL}/auth/signup`,
-    createAdminDto
-  );
+  const response = await axiosInstance.post("/auth/signup", createAdminDto);
   return response.data;
 };

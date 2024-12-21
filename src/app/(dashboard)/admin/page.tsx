@@ -112,9 +112,7 @@ const AdminPage = () => {
                 <AttendanceBarChart />
               </div>
             </div>
-            <span className="pt-5 font-semibold text-xl">
-              Leave Requests
-            </span>
+            <span className="pt-5 font-semibold text-xl">Leave Requests</span>
             {/* LEAVE REQUESTS  use data-table component for schad cn ui*/}
             <LeaveRequestTable />
           </div>

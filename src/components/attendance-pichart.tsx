@@ -29,11 +29,11 @@ const chartConfig = {
   },
   boy: {
     label: "boy",
-    color: "hsl(var(--primary))",
+    color: "hsl(var(--chart-3))",
   },
   girl: {
     label: "girl",
-    color: "hsl(var(--chart-4))",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
@@ -61,9 +61,9 @@ function AttendancePichart() {
                data={chartData}
                dataKey="students"
                nameKey="gender"
-               innerRadius={70} // Adjusted for a wider slice
-               outerRadius={80} // Increased radius for better proportions
-               strokeWidth={8} 
+               innerRadius={50} // Adjusted for a wider slice
+               outerRadius={70} // Increased radius for better proportions
+               strokeWidth={5} 
             >
               <Label
                 content={({ viewBox }) => {

@@ -2,6 +2,7 @@
 import { Nunito } from "next/font/google";
 const nunito = Nunito({ subsets: ["latin"] });
 import { AppSidebar } from "@/components/app-sidebar";
+import React from "react";
 import {
   SidebarInset,
   SidebarProvider,
@@ -38,34 +39,34 @@ export default function MenuLayout({
     return pathSegments.map((segment, index) => {
       const href = "/" + pathSegments.slice(0, index + 1).join("/"); // Create href for each breadcrumb
       const isLast = index === pathSegments.length - 1; // Check if it's the last breadcrumb (current page)
-
+  
       // Skip rendering the first breadcrumb if it's "menu"
       if (index === 0 && segment === "menu") {
         return null;
       }
-
+  
       return (
-        <>
-         <Breadcrumb key={segment + index}>
-          <BreadcrumbList >
-            {/* Use the segment value + index for uniqueness */}
-            <BreadcrumbItem>
-              {isLast ? (
-                <BreadcrumbPage>{segment.replace("-", " ")}</BreadcrumbPage> // Display page name for the last breadcrumb
-              ) : (
-                <BreadcrumbLink href={href}>
-                  {segment.replace("-", " ")}
-                </BreadcrumbLink> // Link for other breadcrumbs
-              )}
-            </BreadcrumbItem>
-          </BreadcrumbList>
+        <React.Fragment key={segment + index}> {/* Provide a unique key */}
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                {isLast ? (
+                  <BreadcrumbPage>{segment.replace("-", " ")}</BreadcrumbPage>
+                ) : (
+                  <BreadcrumbLink href={href}>
+                    {segment.replace("-", " ")}
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
+            </BreadcrumbList>
           </Breadcrumb>
           {/* Add a separator after each breadcrumb except the last one */}
           {index < pathSegments.length - 1 && <BreadcrumbSeparator />}
-        </>
+        </React.Fragment>
       );
     });
   };
+  
 
   return (
     <html lang="en">

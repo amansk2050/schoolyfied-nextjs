@@ -31,6 +31,8 @@ import {
 } from "@/components/ui/sidebar";
 import { useGetUserFromToken } from "@/api/users";
 import { useGetRegisterdSchoolByUserId } from "@/api/school";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const data = {
   navMain: [
     {
@@ -199,10 +201,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     avatar: "",
   });
   const getUserFromToken = useGetUserFromToken();
-  const userId = "fbc9833f-c03d-4631-8319-c1191aa9f8aa";
+  const userId = "0fa7117a-d243-4a25-8d5c-8d580df915ed";
 
   //@TODO: get user id from token is not completed because there is no api to school created by user
-  
 
   // set school name
   const [schoolName, setSchoolName] = useState("");
@@ -222,13 +223,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // handle get school by user id
   useEffect(() => {
     if (getSchoolByUser.error) {
-      console.log(getSchoolByUser.error);
+      toast.error("Error while fetching school data");
     }
     if (getSchoolByUser.data) {
-      console.log("school data ",getSchoolByUser.data.data.name);
+      console.log("school data ", getSchoolByUser.data.data.name);
       setSchoolName(getSchoolByUser.data.data.name);
     }
-  }, [getSchoolByUser.error, getSchoolByUser.data,]);
+  }, [getSchoolByUser.error, getSchoolByUser.data]);
   return (
     <Sidebar className="" variant="floating" collapsible="icon" {...props}>
       <SidebarHeader className="">
@@ -257,6 +258,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <NavUser user={user} />
       </SidebarFooter>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Sidebar>
   );
 }
