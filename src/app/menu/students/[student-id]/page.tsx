@@ -108,51 +108,196 @@ const StudentProfile = () => {
           <TabsTrigger value="address">Address</TabsTrigger>
           <TabsTrigger value="parentDetails">Parent details</TabsTrigger>
           <TabsTrigger value="medicalRecords">Medical Records</TabsTrigger>
+          {/*  for now we have not decided about performance tab
           <TabsTrigger value="performance">Performance</TabsTrigger>
+           */}
         </TabsList>
         <TabsContent value="address">
           <Card>
             <CardHeader>
-              <CardTitle>Account</CardTitle>
-              <CardDescription>
-                Make changes to your account here. Click save when youre done.
-              </CardDescription>
+              <CardTitle>Address</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" defaultValue="Pedro Duarte" />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" defaultValue="@peduarte" />
+              <div className="grid w-full grid-cols-3 gap-4">
+                <div className="w-full ">
+                  <Label htmlFor="addressLine1">Address Line 1</Label>
+                  <CardDescription>Amravati gali, Jyangra</CardDescription>
+                </div>
+                <div className="w-full">
+                  <Label htmlFor="addressLine2">Address Line 2</Label>
+                  <CardDescription>
+                    Baguihati, North 24 parganas
+                  </CardDescription>
+                </div>
+                <div className="w-full">
+                  <Label htmlFor="cityTown">City/Town</Label>
+                  <CardDescription>Kolkata</CardDescription>
+                </div>
+                {/* Separator */}
+                <div className="col-span-3">
+                  <Separator
+                    orientation="horizontal"
+                    className="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent"
+                  />
+                </div>
+                <div className="w-full">
+                  <Label htmlFor="pincode">Pincode</Label>
+                  <CardDescription>70059</CardDescription>
+                </div>
+                <div className="w-full">
+                  <Label htmlFor="country">Country</Label>
+                  <CardDescription>India</CardDescription>
+                </div>
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Save changes</Button>
+              <Button>Edit</Button>
             </CardFooter>
           </Card>
         </TabsContent>
         <TabsContent value="parentDetails">
           <Card>
             <CardHeader>
-              <CardTitle>Password</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, youll be logged out.
-              </CardDescription>
+              <CardTitle>Parents Details</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="current">Current password</Label>
-                <Input id="current" type="password" />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="new">New password</Label>
-                <Input id="new" type="password" />
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2">
+                  <CardTitle className="font-medium text-lg bg-muted rounded-md pl-2">
+                    Father Details
+                  </CardTitle>
+                  <div className="grid w-full grid-cols-3 gap-4">
+                    <div className="w-full ">
+                      <Label htmlFor="name">Name</Label>
+                      <CardDescription>Abdul Hasib</CardDescription>
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="mobileNumber">Mobile Number</Label>
+                      <CardDescription>+91 - 8827475472</CardDescription>
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="emailId">Email ID</Label>
+                      <CardDescription> NA </CardDescription>
+                    </div>
+                    {/* Separator */}
+                    <div className="col-span-3">
+                      <Separator
+                        orientation="horizontal"
+                        className="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="education">Education Qualification</Label>
+                      <CardDescription>B.Tech </CardDescription>
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="occupation">Occupation</Label>
+                      <CardDescription>Garments Business</CardDescription>
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="income">Annual Income</Label>
+                      <CardDescription>20 L</CardDescription>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <CardTitle className="font-medium text-lg bg-muted rounded-md pl-2">
+                    Mother Details
+                  </CardTitle>
+                  <div className="grid w-full grid-cols-3 gap-4">
+                    <div className="w-full ">
+                      <Label htmlFor="name">Name</Label>
+                      <CardDescription>Rousonara Begum</CardDescription>
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="mobileNumber">Mobile Number</Label>
+                      <CardDescription>+91 - 8967305644</CardDescription>
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="emailId">Email ID</Label>
+                      <CardDescription> NA </CardDescription>
+                    </div>
+                    {/* Separator */}
+                    <div className="col-span-3">
+                      <Separator
+                        orientation="horizontal"
+                        className="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent"
+                      />
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="education">Education Qualification</Label>
+                      <CardDescription>class 10</CardDescription>
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="occupation">Occupation</Label>
+                      <CardDescription>House Wife</CardDescription>
+                    </div>
+                    <div className="w-full">
+                      <Label htmlFor="income">Annual Income</Label>
+                      <CardDescription> NA </CardDescription>
+                    </div>
+                  </div>
+                </div>
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Save password</Button>
+              <Button>Edit</Button>
+            </CardFooter>
+          </Card>
+        </TabsContent>
+        <TabsContent value="medicalRecords">
+          <Card>
+            <CardHeader>
+              <CardTitle>Medical Records</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="grid w-full grid-cols-3 gap-4">
+                <div className="w-full">
+                  <Label htmlFor="weight">Weight (KG)</Label>
+                  <CardDescription>70</CardDescription>
+                </div>
+                <div className="w-full ">
+                  <Label htmlFor="height">Height (CM)</Label>
+                  <CardDescription>174</CardDescription>
+                </div>
+                <div className="w-full">
+                  <Label htmlFor="bmi">Body Mass Index (BMI)</Label>
+                  <CardDescription> NA </CardDescription>
+                </div>
+                {/* Separator */}
+                <div className="col-span-3">
+                  <Separator
+                    orientation="horizontal"
+                    className="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent"
+                  />
+                </div>
+                <div className="w-full">
+                  <Label htmlFor="haemoglobin">haemoglobin (HB)</Label>
+                  <CardDescription> NA </CardDescription>
+                </div>
+                <div className="w-full">
+                  <Label htmlFor="desises">Desises </Label>
+                  <CardDescription> NA </CardDescription>
+                </div>
+                <div className="w-full">
+                  <Label htmlFor="allergies">Allergies </Label>
+                  <CardDescription> NA </CardDescription>
+                </div>
+                {/* Separator */}
+                <div className="col-span-3">
+                  <Separator
+                    orientation="horizontal"
+                    className="h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent"
+                  />
+                </div>
+                <div className="w-full">
+                  <Label htmlFor="covid">Covid Vaccination </Label>
+                  <CardDescription> YES </CardDescription>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button>Edit</Button>
             </CardFooter>
           </Card>
         </TabsContent>
