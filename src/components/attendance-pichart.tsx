@@ -58,12 +58,14 @@ function AttendancePichart() {
               content={<ChartTooltipContent hideLabel />}
             />
             <Pie
-               data={chartData}
-               dataKey="students"
-               nameKey="gender"
-               innerRadius={50} // Adjusted for a wider slice
-               outerRadius={70} // Increased radius for better proportions
-               strokeWidth={5} 
+              data={chartData}
+              dataKey="students"
+              nameKey="gender"
+              innerRadius={50} // Adjusted for a wider slice
+              outerRadius={70} // Increased radius for better proportions
+              strokeWidth={5}
+              fillOpacity={0.8}
+              paddingAngle={2}
             >
               <Label
                 content={({ viewBox }) => {
@@ -87,7 +89,7 @@ function AttendancePichart() {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                         total students
+                          total students
                         </tspan>
                       </text>
                     );
@@ -111,4 +113,3 @@ function AttendancePichart() {
 }
 
 export default AttendancePichart;
-

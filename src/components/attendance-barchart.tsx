@@ -27,13 +27,13 @@ const chartData = [
 ];
 
 const chartConfig = {
-  present: {
-    label: "present",
-    color: "hsl(var(--primary))", 
-  },
   absent: {
     label: "absent",
-    color: "hsl(var(--chart-4))", 
+    color: "hsl(var(--chart-1))",
+  },
+  present: {
+    label: "present",
+    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
 
@@ -60,8 +60,20 @@ function AttendanceBarChart() {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="present" fill="var(--color-present)" radius={4} />
-            <Bar dataKey="absent" fill="var(--color-absent)" radius={4} />
+            <Bar
+              dataKey="present"
+              fill="var(--color-present)"
+              fillOpacity={0.4}
+              stroke="var(--color-present)"
+              radius={4}
+            />
+            <Bar
+              dataKey="absent"
+              fill="var(--color-absent)"
+              fillOpacity={0.4}
+              stroke="var(--color-absent)"
+              radius={4}
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>

@@ -55,7 +55,7 @@ const data = {
         },
         {
           title: "Attendance",
-          url: "#",
+          url: "/menu/attendance",
         },
         {
           title: "Health Profile", // and medical emergency
