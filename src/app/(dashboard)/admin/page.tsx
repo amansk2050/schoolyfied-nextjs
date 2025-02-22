@@ -81,6 +81,12 @@ const AdminPage = () => {
             </Breadcrumb>
           </div>
         </header>
+        {/* Heading */}
+        <div className="px-6 py-4">
+          <h1 className="text-2xl font-normal tracking-tight">
+            Admin Dashboard
+          </h1>
+        </div>
         {/* MIDDLE */}
         <div className="flex flex-row h-screen w-full ">
           {/* MIDDLE-LEFT */}

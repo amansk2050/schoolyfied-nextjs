@@ -165,10 +165,10 @@ export function ClassAttendanceSummaryTable() {
         <TableCaption>Summary of Class Attendance</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[150px]">Class</TableHead>
-            <TableHead>Total Present</TableHead>
-            <TableHead>Total Absent</TableHead>
-            <TableHead>Room Number</TableHead>
+            <TableHead className="w-[150px] text-black">Class</TableHead>
+            <TableHead className="text-black">Total Present</TableHead>
+            <TableHead className="text-black">Total Absent</TableHead>
+            <TableHead className="text-black">Room Number</TableHead>
             <TableHead className="w-[50px]"></TableHead>
           </TableRow>
         </TableHeader>
@@ -194,7 +194,7 @@ export function ClassAttendanceSummaryTable() {
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem
                       onClick={() =>
-                        router.push(`/menu/classes/${classItem.id}`)
+                        router.push(`/menu/attendance/${classItem.id}`)
                       }
                     >
                       View details
