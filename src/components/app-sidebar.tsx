@@ -69,6 +69,10 @@ const data = {
       icon: Briefcase,
       items: [
         {
+          title: "Teacher Details", // extra class will ge all shown in this page
+          url: "/menu/teachers",
+        },
+        {
           title: "Subject And Class", // extra class will ge all shown in this page
           url: "#",
         },
