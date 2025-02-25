@@ -45,22 +45,22 @@ const data = {
           title: "student Details",
           url: "/menu/students",
         },
-        {
-          title: "Academic Performance",
-          url: "#",
-        },
-        {
-          title: "Achivements",
-          url: "#",
-        },
+        // {
+        //   title: "Academic Performance",
+        //   url: "#",
+        // },
+        // {
+        //   title: "Achivements",
+        //   url: "#",
+        // },
         {
           title: "Attendance",
           url: "/menu/attendance",
         },
-        {
-          title: "Health Profile", // and medical emergency
-          url: "#",
-        },
+        // {
+        //   title: "Health Profile", // and medical emergency
+        //   url: "#",
+        // },
       ],
     },
     {
@@ -73,20 +73,16 @@ const data = {
           url: "/menu/teachers",
         },
         {
-          title: "Subject And Class", // extra class will ge all shown in this page
-          url: "#",
-        },
-        {
           title: "Attendance",
-          url: "#",
+          url: "/menu/teacher-attendance",
         },
-        {
-          title: "Performance and Achiments",
-          url: "#",
-        },
+        // {
+        //   title: "Performance and Achiments",
+        //   url: "#",
+        // },
         {
           title: "Routine",
-          url: "#",
+          url: "/menu/routine",
         },
       ],
     },

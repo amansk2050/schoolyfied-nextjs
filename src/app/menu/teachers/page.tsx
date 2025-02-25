@@ -1,7 +1,10 @@
 "use client";
+import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -160,16 +163,39 @@ const TeacherCard = ({ teacher }) => {
 };
 
 export default function TeachersPage() {
+  const [searchQuery, setSearchQuery] = React.useState("");
+
+  const filteredTeachers = teachers.filter((teacher) =>
+    [teacher.name, teacher.role, teacher.subject]
+      .join(" ")
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="container mx-auto p-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tight">Teaching Staff</h1>
+        <div className="relative">
+          <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search by name, role or subject..."
+            className="pl-8"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {teachers.map((teacher) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {filteredTeachers.map((teacher) => (
           <TeacherCard key={teacher.id} teacher={teacher} />
         ))}
       </div>
+      {filteredTeachers.length === 0 && (
+        <div className="text-center mt-8 text-muted-foreground">
+          No teachers found matching your search.
+        </div>
+      )}
     </div>
   );
 }
