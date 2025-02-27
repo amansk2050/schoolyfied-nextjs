@@ -2,7 +2,14 @@
 import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import toCamelCase from "@/helper/toCamelCase";
-import { EyeIcon } from "lucide-react";
+import {
+  EyeIcon,
+  UserIcon,
+  Users,
+  MapPin,
+  Calendar,
+  CheckCircle,
+} from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -13,9 +20,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
+import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { AddClassSectionSheet } from "@/components/add-class-section-sheet";
+import { motion } from "framer-motion";
 
 const data = {
   sectionCategory: [
@@ -300,118 +308,184 @@ const data = {
           ],
         },
       ],
-    }
+    },
   ],
 };
 
 const ClassRoomMenu = () => {
   return (
-    <div className="flex flex-col p-2">
-       <Label className="font-bold text-2xl">Classroom Details</Label>
-      <Label className="pt-4 font-normal text-sm">
-        Get you classroom details here.
-      </Label>
-      <div className="p-3 flex justify-end ">
-      <AddClassSectionSheet />
+    <div className="flex flex-col p-4 max-w-7xl mx-auto">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-lg p-6 mb-6 text-white shadow-lg">
+        <h1 className="text-3xl font-bold mb-2">Classroom Management</h1>
+        <p className="text-blue-100 mb-4">
+          View and manage all classroom details across different sections
+        </p>
+        <div className="flex justify-between items-center">
+          <div className="flex gap-2 items-center">
+            <Badge variant="secondary" className="bg-white text-blue-700">
+              <Calendar className="mr-1 h-3 w-3" /> Academic Year 2023-24
+            </Badge>
+            <Badge
+              variant="outline"
+              className="bg-blue-700 text-white border-blue-500"
+            >
+              <Users className="mr-1 h-3 w-3" />{" "}
+              {data.sectionCategory.reduce(
+                (acc, category) =>
+                  acc +
+                  category.class.reduce(
+                    (acc2, cls) => acc2 + cls.classSections.length,
+                    0
+                  ),
+                0
+              )}{" "}
+              Sections
+            </Badge>
+          </div>
+          <AddClassSectionSheet />
+        </div>
       </div>
 
       <Tabs
         defaultValue={toCamelCase(data.sectionCategory[0].title)}
-        className="h-screen pt-2"
+        className="w-full"
       >
-        <TabsList className="grid w-full grid-cols-5">
-          {data.sectionCategory.map((section) => {
-            return (
-              <TabsTrigger
-                key={section.sectionCategoryId}
-                value={toCamelCase(section.title)}
-              >
-                {section.title}
-              </TabsTrigger>
-            );
-          })}
-        </TabsList>
-        {data.sectionCategory.map((section) => {
-          return (
-            <TabsContent
+        <TabsList className="grid w-full grid-cols-5 mb-8 bg-slate-100 p-1 rounded-xl">
+          {data.sectionCategory.map((section) => (
+            <TabsTrigger
               key={section.sectionCategoryId}
               value={toCamelCase(section.title)}
-              className=""
+              className="text-sm font-medium transition-all data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg py-2"
             >
-              <div>
-                {section.class.map((classData) => {
-                  return (
-                    <Card
-                      key={classData.classId}
-                      className="mb-4 w-[70%] mx-auto "
-                    >
-                      <CardHeader className="items-center p-2">
-                        <CardTitle className="">
-                          {classData.className}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="grid grid-cols-3 gap-2 ">
-                        {classData.classSections.map((sectionData) => {
-                          return (
-                            <Card
-                              key={sectionData.sectionId}
-                              className="mb-2 flex flex-col transition-transform transform hover:-translate-y-2 hover:shadow-2xl"
-                            >
-                              <CardHeader className="justify-between flex flex-row p-2 gap-2 bg-secondary rounded-md">
-                                <Avatar className="">
+              {section.title}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        {data.sectionCategory.map((section) => (
+          <TabsContent
+            key={section.sectionCategoryId}
+            value={toCamelCase(section.title)}
+            className="animate-in fade-in-50 duration-300"
+          >
+            <div className="space-y-8">
+              {section.class.map((classData) => (
+                <div key={classData.classId} className="mb-8">
+                  <div className="flex items-center mb-4">
+                    <div className="bg-blue-100 p-2 rounded-full text-blue-700 mr-3">
+                      <Users size={20} />
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-800">
+                      {classData.className}
+                    </h2>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {classData.classSections.map((sectionData) => (
+                      <motion.div
+                        key={sectionData.sectionId}
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Card className="overflow-hidden border border-slate-200 h-full bg-white hover:shadow-xl transition-shadow duration-300">
+                          <CardHeader className="p-4 bg-gradient-to-r from-slate-50 to-slate-100 border-b">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <Avatar className="border-2 border-white shadow-sm">
                                   <AvatarImage src="https://github.com/shadcn.png" />
-                                  <AvatarFallback>CN</AvatarFallback>
+                                  <AvatarFallback className="bg-blue-600 text-white">
+                                    {sectionData.sectionName.substring(0, 2)}
+                                  </AvatarFallback>
                                 </Avatar>
-                                <label className=" text-sm">
+                                <div>
+                                  <CardTitle className="text-lg text-gray-800">
+                                    {sectionData.sectionName}
+                                  </CardTitle>
+                                  <CardDescription className="text-sm">
+                                    Room {sectionData.info.roomNo}
+                                  </CardDescription>
+                                </div>
+                              </div>
+                              <Badge
+                                variant="outline"
+                                className="bg-blue-50 text-blue-700 border-blue-200"
+                              >
+                                {Math.round(
+                                  (sectionData.info.totalPresent /
+                                    sectionData.info.totalStudents) *
+                                    100
+                                )}
+                                % Present
+                              </Badge>
+                            </div>
+                          </CardHeader>
+
+                          <CardContent className="p-4">
+                            <div className="space-y-3 text-sm">
+                              <div className="flex items-center gap-2">
+                                <UserIcon size={16} className="text-blue-600" />
+                                <span className="font-medium text-gray-700">
+                                  Teacher:
+                                </span>
+                                <span className="text-gray-600">
                                   {sectionData.info.classTeacher}
-                                </label>
-                                <Label className="pl-2 font-semibold text-s">
-                                  {sectionData.sectionName}
-                                </Label>
-                              </CardHeader>
-                              <CardContent className="items-start p-2 ">
-                                <CardDescription>
-                                  <Label>Class Monitor : </Label>
-                                  <Label>{sectionData.info.classMonitor}</Label>
-                                </CardDescription>
-                                <CardDescription>
-                                  <Label>Total Present : </Label>
-                                  <label>{sectionData.info.totalPresent}</label>
-                                </CardDescription>
-                                <CardDescription>
-                                  <Label>Total Students : </Label>
-                                  <label>
-                                    {sectionData.info.totalStudents}
-                                  </label>
-                                </CardDescription>
-                                <CardDescription>
-                                  <Label>Room No : </Label>
-                                  <Label>{sectionData.info.roomNo}</Label>
-                                </CardDescription>
-                              </CardContent>
-                              <CardFooter className="p-2  items-end ml-auto">
-                                <Link
-                                  href={`/menu/class-room/${sectionData.sectionId}`}
-                                  className="bg-secondary text-white p-2 rounded-md "
-                                >
-                                  <EyeIcon
-                                    name="arrow-right"
-                                    size={20}
-                                    className="rounded-full cursor-pointer text-primary hover:text-black  "
-                                  />
-                                </Link>
-                              </CardFooter>
-                            </Card>
-                          );
-                        })}
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </TabsContent>
-          );
-        })}
+                                </span>
+                              </div>
+
+                              <div className="flex items-center gap-2">
+                                <Users size={16} className="text-blue-600" />
+                                <span className="font-medium text-gray-700">
+                                  Monitor:
+                                </span>
+                                <span className="text-gray-600">
+                                  {sectionData.info.classMonitor}
+                                </span>
+                              </div>
+
+                              <div className="flex items-center gap-2">
+                                <CheckCircle
+                                  size={16}
+                                  className="text-emerald-600"
+                                />
+                                <span className="font-medium text-gray-700">
+                                  Present:
+                                </span>
+                                <span className="text-gray-600">
+                                  {sectionData.info.totalPresent} /{" "}
+                                  {sectionData.info.totalStudents}
+                                </span>
+                              </div>
+
+                              <div className="flex items-center gap-2">
+                                <MapPin size={16} className="text-blue-600" />
+                                <span className="font-medium text-gray-700">
+                                  Room:
+                                </span>
+                                <span className="text-gray-600">
+                                  {sectionData.info.roomNo}
+                                </span>
+                              </div>
+                            </div>
+                          </CardContent>
+
+                          <CardFooter className="p-4 pt-0 flex justify-end">
+                            <Link
+                              href={`/menu/class-room/${sectionData.sectionId}`}
+                              className="inline-flex items-center gap-1 px-3 py-2 rounded-md bg-primary text-white hover:bg-primary/90 transition-colors"
+                            >
+                              View Details
+                              <EyeIcon size={16} />
+                            </Link>
+                          </CardFooter>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+        ))}
       </Tabs>
     </div>
   );

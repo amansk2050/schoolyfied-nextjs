@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -14,6 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AddTeacherSheet from "@/components/add-teacher-sheet";
 
 const teachers = [
   {
@@ -119,6 +121,8 @@ const teachers = [
 ];
 
 const TeacherCard = ({ teacher }) => {
+  const router = useRouter();
+
   return (
     <Card className="relative">
       <div className="absolute top-4 right-4">
@@ -154,7 +158,11 @@ const TeacherCard = ({ teacher }) => {
         </p>
       </CardContent>
       <CardFooter>
-        <Button className="w-full" variant="default">
+        <Button
+          className="w-full"
+          variant="default"
+          onClick={() => router.push(`/menu/teachers/${teacher.id}`)}
+        >
           View Full Profile
         </Button>
       </CardFooter>
@@ -164,6 +172,8 @@ const TeacherCard = ({ teacher }) => {
 
 export default function TeachersPage() {
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [isAddTeacherSheetOpen, setIsAddTeacherSheetOpen] =
+    React.useState(false);
 
   const filteredTeachers = teachers.filter((teacher) =>
     [teacher.name, teacher.role, teacher.subject]
@@ -175,7 +185,15 @@ export default function TeachersPage() {
   return (
     <div className="container mx-auto p-6">
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-bold tracking-tight">Teaching Staff</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold tracking-tight">Teaching Staff</h1>
+          <Button
+            onClick={() => setIsAddTeacherSheetOpen(true)}
+            className="flex items-center gap-2"
+          >
+            <Plus className="h-4 w-4" /> Add Teacher
+          </Button>
+        </div>
         <div className="relative">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -196,6 +214,11 @@ export default function TeachersPage() {
           No teachers found matching your search.
         </div>
       )}
+
+      <AddTeacherSheet
+        open={isAddTeacherSheetOpen}
+        onOpenChange={setIsAddTeacherSheetOpen}
+      />
     </div>
   );
 }

@@ -96,10 +96,6 @@ const data = {
           url: "/menu/class-room",
         },
         {
-          title: "Timetable",
-          url: "#",
-        },
-        {
           title: "Report card",
           url: "#",
         },
@@ -113,7 +109,7 @@ const data = {
         },
         {
           title: "Lesson Plan",
-          url: "#",
+          url: "/menu/lesson-plan",
         },
         {
           title: "Examination",

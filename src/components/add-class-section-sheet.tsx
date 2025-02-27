@@ -1,7 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Sheet,
   SheetClose,
@@ -11,20 +11,22 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
+import { PlusCircle } from "lucide-react";
 
 export function AddClassSectionSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="default">Add class section</Button>
+        <Button className="bg-black text-white hover:bg-black/90 flex items-center gap-2">
+          <PlusCircle className="h-4 w-4" />
+          Add class section
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Add class section</SheetTitle>
-          <SheetDescription>
-            Add new section for this class
-          </SheetDescription>
+          <SheetDescription>Add new section for this class</SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -47,5 +49,5 @@ export function AddClassSectionSheet() {
         </SheetFooter>
       </SheetContent>
     </Sheet>
-  )
+  );
 }

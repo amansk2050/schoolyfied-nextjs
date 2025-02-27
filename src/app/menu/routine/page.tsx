@@ -128,7 +128,7 @@ export default function Routine() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className="container mx-auto p-6 space-y-12">
+    <div className="container mx-auto p-6 space-y-12 ">
       <h1 className="text-3xl font-bold text-gray-800">
         School Weekly Routine
       </h1>
