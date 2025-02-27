@@ -387,21 +387,14 @@ function LessonPlanPage() {
 
       {/* Filters and View Selection */}
       <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
-        {/* Back button when in subject or grade view */}
+        {/* Back button when in subject or grade view - modified to just show title without the back button */}
         {(activeView !== "dashboard" ||
           searchTerm ||
           subjectFilter !== "all" ||
           gradeFilter !== "all" ||
           statusFilter !== "all") && (
           <div className="flex items-center mb-4 md:mb-0">
-            <Button
-              variant="outline"
-              className="flex items-center gap-2 mr-4"
-              onClick={returnToDashboard}
-            >
-              <ArrowLeft size={16} />
-              <span>Back to All Plans</span>
-            </Button>
+            {/* "Back to All Plans" button removed as requested */}
             <h2 className="text-xl font-medium">
               {activeView === "subject" ? (
                 <span className="flex items-center gap-2">
@@ -529,7 +522,6 @@ function LessonPlanPage() {
             className="w-[280px]"
           >
             <TabsList className="grid w-full grid-cols-3">
-              {/* Keep the name consistent, add a tooltip instead */}
               <TabsTrigger
                 value="modern"
                 title={
@@ -556,21 +548,7 @@ function LessonPlanPage() {
             </TabsList>
           </Tabs>
 
-          {/* Add a separate Dashboard button when filters are active */}
-          {(searchTerm ||
-            subjectFilter !== "all" ||
-            gradeFilter !== "all" ||
-            statusFilter !== "all") && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex items-center gap-1 hidden md:flex"
-              onClick={returnToDashboard}
-            >
-              <ArrowLeft size={14} className="mr-1" />
-              Dashboard
-            </Button>
-          )}
+          {/* Separate Dashboard button removed, but "Back to Dashboard" functionality preserved in view type change */}
         </div>
       </div>
 

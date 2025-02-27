@@ -174,22 +174,7 @@ export default function LessonPlanDetail({
                   <Edit size={14} />
                   <span>Edit</span>
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="flex items-center gap-1 bg-white/20 hover:bg-white/30 text-white"
-                >
-                  <Share2 size={14} />
-                  <span>Share</span>
-                </Button>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="flex items-center gap-1 bg-white/20 hover:bg-white/30 text-white"
-                >
-                  <BookmarkPlus size={14} />
-                  <span>Save</span>
-                </Button>
+                {/* Share and Save buttons removed as requested */}
               </div>
             </div>
 
@@ -218,42 +203,7 @@ export default function LessonPlanDetail({
         </div>
       </div>
 
-      {/* Secondary Action Bar */}
-      <div className="flex justify-between items-center bg-muted/30 rounded-lg p-3">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center">
-            <Star size={16} className="fill-amber-400 text-amber-400" />
-            <Star size={16} className="fill-amber-400 text-amber-400" />
-            <Star size={16} className="fill-amber-400 text-amber-400" />
-            <Star size={16} className="fill-amber-400 text-amber-400" />
-            <StarHalf size={16} className="fill-amber-400 text-amber-400" />
-            <span className="ml-2 text-sm font-medium">4.5 rating</span>
-          </div>
-          <Separator orientation="vertical" className="h-6" />
-          <div className="text-sm text-muted-foreground">
-            8 teachers using this plan
-          </div>
-        </div>
-
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-1"
-          >
-            <Download size={14} />
-            <span>Export</span>
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-1"
-          >
-            <Printer size={14} />
-            <span>Print</span>
-          </Button>
-        </div>
-      </div>
+      {/* Secondary Action Bar with ratings, export, print removed as requested */}
 
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="w-full justify-start mb-6 overflow-auto bg-muted/30 rounded-lg p-1">
@@ -291,41 +241,12 @@ export default function LessonPlanDetail({
 
         {/* Overview Tab */}
         <TabsContent value="overview" className="space-y-6">
-          {/* Status Bar */}
-          <div className="bg-muted/30 rounded-lg p-4">
-            <div className="flex flex-wrap gap-4 justify-between items-center">
-              <div className="flex items-center gap-2">
-                <div className="bg-green-100 text-green-800 p-1.5 rounded-full">
-                  <CheckCircle2 size={16} />
-                </div>
-                <span className="font-medium">Ready to teach</span>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <div className="text-sm font-medium">Preparation Level</div>
-                  <Progress value={75} className="h-2 w-24" />
-                  <span className="text-sm">75%</span>
-                </div>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center gap-1"
-                >
-                  <AlertCircle size={14} />
-                  <span>Report Issue</span>
-                </Button>
-              </div>
-            </div>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Objectives */}
             <Card className="col-span-1 md:col-span-2 border-none shadow-md">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50">
-                <CardTitle className="flex items-center gap-2 text-blue-800 dark:text-blue-300">
-                  <CheckSquare size={18} />
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 py-3">
+                <CardTitle className="flex items-center gap-2 text-blue-800 dark:text-blue-300 text-lg">
+                  <CheckSquare size={16} />
                   Learning Objectives
                 </CardTitle>
               </CardHeader>
@@ -356,9 +277,9 @@ export default function LessonPlanDetail({
 
             {/* Essential Information */}
             <Card className="border-none shadow-md">
-              <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50">
-                <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-300">
-                  <BookOpen size={18} />
+              <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 py-3">
+                <CardTitle className="flex items-center gap-2 text-amber-800 dark:text-amber-300 text-lg">
+                  <BookOpen size={16} />
                   Essential Information
                 </CardTitle>
               </CardHeader>
@@ -385,9 +306,9 @@ export default function LessonPlanDetail({
 
           {/* Resources */}
           <Card className="border-none shadow-md">
-            <CardHeader className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50">
-              <CardTitle className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300">
-                <FileText size={18} />
+            <CardHeader className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50 py-3">
+              <CardTitle className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 text-lg">
+                <FileText size={16} />
                 Materials and Resources
               </CardTitle>
             </CardHeader>
@@ -402,64 +323,54 @@ export default function LessonPlanDetail({
                       {index + 1}
                     </div>
                     <span className="flex-1">{resource}</span>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8"
-                    >
-                      <ChevronRight size={16} />
-                    </Button>
+                    {/* Right arrow removed as requested */}
                   </li>
                 ))}
               </ul>
             </CardContent>
           </Card>
 
-          {/* Assessment & Differentiation */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Assessment */}
-            <Card className="border-none shadow-md">
-              <CardHeader className="bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50">
-                <CardTitle className="text-violet-800 dark:text-violet-300">
-                  Assessment
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <p>{lessonPlan.assessment}</p>
-              </CardContent>
-            </Card>
-
-            {/* Differentiation */}
-            <Card className="border-none shadow-md">
-              <CardHeader className="bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-950/50 dark:to-rose-950/50">
-                <CardTitle className="text-pink-800 dark:text-pink-300">
-                  Differentiation
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <p>{lessonPlan.differentiation}</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Homework */}
+          {/* Assessment */}
           <Card className="border-none shadow-md">
-            <CardHeader className="bg-gradient-to-r from-gray-50 to-slate-50 dark:from-gray-950/50 dark:to-slate-950/50">
-              <CardTitle>Homework</CardTitle>
+            <CardHeader className="bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-950/50 dark:to-purple-950/50 py-3">
+              <CardTitle className="text-violet-800 dark:text-violet-300 text-lg">
+                Assessment
+              </CardTitle>
             </CardHeader>
             <CardContent className="pt-6">
-              <p>{lessonPlan.homework}</p>
+              <p>{lessonPlan.assessment}</p>
+            </CardContent>
+          </Card>
+
+          {/* Homework - with option to add homework */}
+          <Card className="border-none shadow-md">
+            <CardHeader className="bg-gradient-to-r from-gray-50 to-slate-50 dark:from-gray-950/50 dark:to-slate-950/50 py-3 flex flex-row items-center justify-between">
+              <CardTitle className="text-lg">Homework</CardTitle>
+              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs">
+                <PenSquare size={12} className="mr-1" /> Edit Homework
+              </Button>
+            </CardHeader>
+            <CardContent className="pt-6">
+              {lessonPlan.homework ? (
+                <p>{lessonPlan.homework}</p>
+              ) : (
+                <div className="p-4 border border-dashed rounded-md bg-muted/30 flex flex-col items-center justify-center text-center space-y-2">
+                  <p className="text-muted-foreground">No homework assigned</p>
+                  <Button variant="outline" size="sm">
+                    <Plus size={14} className="mr-1" /> Add Homework
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* The rest of the tabs can remain the same with styling improvements */}
-        {/* Lesson Flow Tab */}
+        {/* Lesson Flow Tab - modified */}
         <TabsContent value="lesson-flow" className="space-y-6">
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock size={18} />
+            <CardHeader className="py-3">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Clock size={16} />
                 Lesson Procedure
               </CardTitle>
             </CardHeader>
@@ -474,7 +385,10 @@ export default function LessonPlanDetail({
                       {index + 1}
                     </div>
                     <div>
-                      <h3 className="text-lg font-medium">{procedure.title}</h3>
+                      {/* Removed time from procedure title */}
+                      <h3 className="text-lg font-medium">
+                        {procedure.title.split("(")[0].trim()}
+                      </h3>
                       <p className="mt-2 text-muted-foreground">
                         {procedure.content}
                       </p>
@@ -484,26 +398,14 @@ export default function LessonPlanDetail({
               </div>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Time Distribution</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[200px] w-full bg-muted rounded-md flex items-center justify-center">
-                <p className="text-muted-foreground">
-                  Time distribution chart will be displayed here
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Time Distribution card removed as requested */}
         </TabsContent>
 
-        {/* Resources Tab */}
+        {/* Resources Tab - Keep original content */}
         <TabsContent value="resources" className="space-y-6">
           <Card>
-            <CardHeader>
-              <CardTitle>Attachments</CardTitle>
+            <CardHeader className="py-3">
+              <CardTitle className="text-lg">Attachments</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -535,8 +437,8 @@ export default function LessonPlanDetail({
           </Card>
 
           <Card>
-            <CardHeader>
-              <CardTitle>External Links</CardTitle>
+            <CardHeader className="py-3">
+              <CardTitle className="text-lg">External Links</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -631,20 +533,32 @@ export default function LessonPlanDetail({
           </Card>
         </TabsContent>
 
-        {/* Notes Tab */}
+        {/* Notes Tab - modified */}
         <TabsContent value="notes" className="space-y-6">
           <Card>
-            <CardHeader>
-              <CardTitle>Teacher Notes</CardTitle>
+            <CardHeader className="py-3 flex flex-row items-center justify-between">
+              <CardTitle className="text-lg">Teacher Notes</CardTitle>
+              <Button size="sm" variant="ghost" className="h-7 px-2 text-xs">
+                <PenSquare size={12} className="mr-1" /> Edit Notes
+              </Button>
             </CardHeader>
             <CardContent>
-              <p>{lessonPlan.notes}</p>
+              {lessonPlan.notes ? (
+                <p>{lessonPlan.notes}</p>
+              ) : (
+                <div className="p-4 border border-dashed rounded-md bg-muted/30 flex flex-col items-center justify-center text-center space-y-2">
+                  <p className="text-muted-foreground">No notes added yet</p>
+                  <Button variant="outline" size="sm">
+                    <Plus size={14} className="mr-1" /> Add Notes
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader>
-              <CardTitle>Reflection Area</CardTitle>
+            <CardHeader className="py-3">
+              <CardTitle className="text-lg">Reflection Area</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="p-4 border border-dashed rounded-md bg-muted/30 flex flex-col items-center justify-center text-center space-y-2">
@@ -655,11 +569,11 @@ export default function LessonPlanDetail({
           </Card>
         </TabsContent>
 
-        {/* History Tab */}
+        {/* History Tab - Keep original content */}
         <TabsContent value="history" className="space-y-6">
           <Card>
-            <CardHeader>
-              <CardTitle>Edit History</CardTitle>
+            <CardHeader className="py-3">
+              <CardTitle className="text-lg">Edit History</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
