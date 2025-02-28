@@ -105,7 +105,7 @@ const data = {
         },
         {
           title: "Syllabus",
-          url: "#",
+          url: "/menu/syllabus",
         },
         {
           title: "Lesson Plan",
